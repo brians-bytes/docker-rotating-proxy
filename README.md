@@ -1,4 +1,26 @@
 # docker-rotating-proxy
 
 Inspired by [https://github.com/mattes/rotating-proxy](https://github.com/mattes/rotating-proxy)
-- modified to use proxies instead of tor
+
+
+## Create the application
+Start a proxy server using http proxy
+
+### start the application
+1. get the image
+```bash
+docker pull brianstech/docker-rotating-proxy
+```
+
+1. run the proxy
+```bash
+docker run -d -p 8080:8080 -p 4444:4444 brianstech/docker-rotating-proxy
+```
+
+1. access the proxy stats at
+
+[http://localhost:4444](http://localhost:4444)
+
+1. set you client to use
+- http proxy: [http://localhost:8080](http://localhost:8080)
+- https proxy: [https://localhost:8080](https://localhost:8080)
