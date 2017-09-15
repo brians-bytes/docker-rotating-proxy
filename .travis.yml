@@ -1,26 +1,38 @@
-sudo: required
 language: python
 services:
   - docker
 
 env:
   global:
-    - COMPOSE_VERSION=1.14.0
-    - TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_COMMIT ; fi`]
+    - COMPOSE_VERSION=1.16.1
+    - TAG=$(git rev-parse --short HEAD)
 
 before_install:
   - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker-compose --version
 
 before_script:
-  - docker build --cache-from $REPO -t $REPO:$TRAVIS_COMMIT .
-  - docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG
+  - docker build --cache-from ${REPO} -t $REPO:${TAG} .
+  - docker tag ${REPO}:${TAG} $REPO:latest
+
+install: true
 
 script:
   - echo "test should run here"
 
-after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - docker push $REPO:$TAG
+before_deploy:
+  - docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+
+deploy:
+  provider: script
+  script: 
+    - docker push ${REPO}:latest
+  on:
+    branch: master
+
+  provider: script
+  script: 
+    - docker push ${REPO}:${TAG}
+  on:
+    branch: develop
