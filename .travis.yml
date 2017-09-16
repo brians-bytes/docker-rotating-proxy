@@ -25,14 +25,17 @@ before_deploy:
   - docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
 
 deploy:
-  provider: script
-  script: 
-    - docker push ${REPO}:latest
-  on:
-    branch: master
+  # upload image tagged latest
+  - provider: script
+    script: docker push ${REPO}:latest
+    on:
+      branch: master
 
-  provider: script
-  script: 
-    - docker push ${REPO}:${TAG}
-  on:
-    branch: develop
+  # upload image tagged with github short hash
+  - provider: script
+    script: docker push ${REPO}:${TAG}
+    on:
+      branch: develop
+
+notifications:
+  email: false
