@@ -6,4 +6,4 @@ services:
       - "8080:8080"
       - "4444:4444"
     volumes:
-      - "./haproxy.cfg:/usr/local/etc/haproxy.cfg"
+      - "./:/haproxy"
