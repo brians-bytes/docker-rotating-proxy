@@ -1,11 +1,21 @@
-FROM phusion/baseimage:0.9.22
-MAINTAINER Brian Rotich <brianrotych@gmail.com>
+FROM python:3.6-alpine3.6
+LABEL maintainer="Brian Rotich <brianrotych@gmail.com>"
 
-RUN apt-get update && \
-    apt-get install -y haproxy
+# user account
 
-ADD haproxy.cfg /usr/local/etc/haproxy.cfg
+# add ha proxy
+RUN apk update \
+    && apk add haproxy
+
+COPY . /haproxy
+
+WORKDIR /haproxy
+
+# install python requirements
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
+
 
 EXPOSE 8080 4444
 
-CMD haproxy -d -f /usr/local/etc/haproxy.cfg
+CMD ["python", "start.py"]

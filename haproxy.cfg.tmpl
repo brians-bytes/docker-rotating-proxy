@@ -1,0 +1,41 @@
+global
+    daemon
+    maxconn 256
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    user        haproxy
+    group       haproxy
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+listen stats
+    bind 0.0.0.0:4444
+    mode            http
+    log             global
+    maxconn 200
+    timeout client  3s
+    timeout server  3s
+    timeout connect 3s
+    timeout queue   10s
+    stats enable
+    stats refresh 30s
+    stats show-node
+    stats uri /
+
+frontend proxy_frontend
+    bind *:8080
+    default_backend proxy_backend
+    mode http
+    option forwardfor
+
+backend proxy_backend
+    mode http
+    balance roundrobin
+
+    {% for backend in backends -%}
+    server proxy{{ loop.index }}  {{ backend.ipaddress }}:{{ backend.port }}
+    {% endfor %}
