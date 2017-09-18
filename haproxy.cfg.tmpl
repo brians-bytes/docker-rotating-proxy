@@ -32,6 +32,6 @@ backend proxy_backend
     mode http
     balance roundrobin
 
-    {%- for backend in backends %}
+    {% for backend in backends -%}
     server proxy{{ loop.index }}  {{ backend.ipaddress }}:{{ backend.port }}
-    {%- endfor %}
+    {% endfor %}
