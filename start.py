@@ -1,10 +1,14 @@
+#!/usr/bin/env python
+
 import os
 import json
 
 import jinja2
 
+from subprocess import Popen,PIPE
+
 HA_CONFIG_TMPL_PATH = 'haproxy.cfg.tmpl'
-HA_CONFIG_PATH = '/usr/local/etc/haproxy.cfg'
+HA_CONFIG_PATH = '/etc/haproxy/haproxy.cfg'
 PROXY_PATH = 'proxies.json'
 
 
@@ -38,9 +42,14 @@ def read_proxy_config(file_name):
 def write_ha_proxy_config(config):
     with open(HA_CONFIG_PATH, 'w') as file:
         file.write(config)
+        file.flush()
 
 
 backends = preprocess_proxy_list()
 
 ha_config = create_proxy_config(backends)
 write_ha_proxy_config(ha_config)
+
+p = Popen(['haproxy -d -f {}'.format(HA_CONFIG_PATH)],  shell=True)
+p.wait()
+print ('done running')

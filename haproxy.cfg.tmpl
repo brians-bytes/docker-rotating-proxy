@@ -1,6 +1,10 @@
 global
     daemon
     maxconn 256
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    user        haproxy
+    group       haproxy
 
 defaults
     mode http

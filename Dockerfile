@@ -18,4 +18,4 @@ RUN pip install --upgrade pip \
 
 EXPOSE 8080 4444
 
-CMD haproxy -d -f /usr/local/etc/haproxy.cfg
+CMD ["python", "start.py"]
