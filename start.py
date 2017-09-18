@@ -35,23 +35,12 @@ def read_proxy_config(file_name):
     return data
 
 
-backends = [
-    {
-        'ipaddress': '127.0.0.1',
-        'port': 2344
-    },
-    {
-        'ipaddress': '127.0.0.1',
-        'port': 2344
-    },
-    {
-        'ipaddress': '127.0.0.1',
-        'port': 2344
-    },
-    {
-        'ipaddress': '127.0.0.1',
-        'port': 2344
-    },
-]
+def write_ha_proxy_config(config):
+    with open(HA_CONFIG_PATH, 'w') as file:
+        file.write(config)
 
-print(preprocess_proxy_list())
+
+backends = preprocess_proxy_list()
+
+ha_config = create_proxy_config(backends)
+write_ha_proxy_config(ha_config)
