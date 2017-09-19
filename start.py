@@ -29,8 +29,9 @@ def render(tpl_path, context):
         rendered haproxy config as string
     """
     path, filename = os.path.split(tpl_path)
-    template = jinja2.Environment(loader=jinja2.FileSystemLoader(path or './')
-                                 ).get_template(filename)
+    template = jinja2.Environment(
+        loader=jinja2.FileSystemLoader(path or './'), autoescape=True
+    ).get_template(filename)
     return template.render(context)
 
 
