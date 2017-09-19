@@ -1,4 +1,6 @@
 # docker-rotating-proxy
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/787e065d562a4c499eda6655812cab72)](https://www.codacy.com/app/whiteviel/docker-rotating-proxy)
+
 
 Inspired by [https://github.com/mattes/rotating-proxy](https://github.com/mattes/rotating-proxy)
 
@@ -24,6 +26,6 @@ Start a proxy server using http proxy
         [http://localhost:4444](http://localhost:4444)
 
 1. set you client to use
-    
+
         - http proxy: [http://localhost:8080](http://localhost:8080)
         - https proxy: [https://localhost:8080](https://localhost:8080)
