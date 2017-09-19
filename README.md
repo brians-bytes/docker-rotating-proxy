@@ -1,5 +1,7 @@
 # docker-rotating-proxy
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/787e065d562a4c499eda6655812cab72)](https://www.codacy.com/app/whiteviel/docker-rotating-proxy?utm_source=github.com&utm_medium=referral&utm_content=brians-tech/docker-rotating-proxy&utm_campaign=badger)
+
 Inspired by [https://github.com/mattes/rotating-proxy](https://github.com/mattes/rotating-proxy)
 
 
