@@ -10,7 +10,7 @@ from subprocess import Popen,PIPE
 HA_CONFIG_TMPL_PATH = 'haproxy.cfg.tmpl'
 HA_CONFIG_PATH = '/etc/haproxy/haproxy.cfg'
 PROXY_PATH = 'proxies.json'
-
+NUM_PROXIES = int(os.environ.get('NUM_PROXIES', 5))
 
 def render(tpl_path, context):
     path, filename = os.path.split(tpl_path)
@@ -44,10 +44,16 @@ def write_ha_proxy_config(config):
         file.write(config)
         file.flush()
 
+def prepare_requested_proxies(backends, num_proxies):
+    if len(backends) < num_proxies:
+        return backends
+    # TODO check for active proxies
+    return backends[:num_proxies]
 
 backends = preprocess_proxy_list()
+active_backends = prepare_requested_proxies(backends=backends, num_proxies=NUM_PROXIES)
 
-ha_config = create_proxy_config(backends)
+ha_config = create_proxy_config(active_backends)
 write_ha_proxy_config(ha_config)
 
 p = Popen(['haproxy -d -f {}'.format(HA_CONFIG_PATH)],  shell=True)

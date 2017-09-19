@@ -2,8 +2,8 @@ version: '3'
 services:
   rotating-proxy:
     build: .
-    cache_from:
-      - "brianstech/docker-rotating-proxy"
+    environment:
+      - "NUM_PROXIES=5"
     ports:
       - "8080:8080"
       - "4444:4444"
