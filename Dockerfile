@@ -1,4 +1,5 @@
 FROM python:3.6-alpine3.6
+MAINTAINER "Brian Rotich <brianrotych@gmail.com>"
 LABEL maintainer="Brian Rotich <brianrotych@gmail.com>"
 
 # user account
