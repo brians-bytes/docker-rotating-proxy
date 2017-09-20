@@ -3,21 +3,16 @@ FROM python:3.6-alpine3.6
 MAINTAINER "Brian Rotich <brianrotych@gmail.com>"
 LABEL maintainer="Brian Rotich <brianrotych@gmail.com>"
 
-# user account
-
 # add ha proxy
-RUN apk update \
-    && apk add haproxy
+RUN apk update
+RUN apk --no-cache add haproxy
 
-COPY . /haproxy
-
-WORKDIR /haproxy
+COPY . /app
+WORKDIR /app
 
 # install python requirements
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
-
-EXPOSE 8080 4444
+EXPOSE 4444 8080
 
 CMD ["python", "start.py"]
