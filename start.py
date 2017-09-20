@@ -78,7 +78,7 @@ def preprocess_proxy_list():
     """
     proxies_list = read_proxy_config(PROXY_PATH)
 
-    return list(map(lambda proxy: preprocess_proxy, proxies_list))
+    return list(map(lambda proxy: preprocess_proxy(proxy), proxies_list))
 
 
 def read_proxy_config(file_name):

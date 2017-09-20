@@ -4,7 +4,7 @@ services:
     build: .
     image: "brianstech/docker-rotating-proxy:latest"
     environment:
-      NUM_PROXIES: 5
+      NUM_PROXIES: 30
     ports:
       - "8080:8080"
       - "4444:4444"
