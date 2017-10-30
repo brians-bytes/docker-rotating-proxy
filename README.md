@@ -27,5 +27,5 @@ Start a proxy server using http proxy
 
 1. set you client to use
 
-        - http proxy: [http://localhost:8080](http://localhost:8080)
-        - https proxy: [https://localhost:8080](https://localhost:8080)
+        - http proxy: http://localhost:8080
+        - https proxy: https://localhost:8080
